@@ -24,8 +24,9 @@ public class EmployeeService {
 	
 	public Long create(Employee employee){
 		
-		//TODO handle Exceptions 
-		return repository.save(employee).getId();		
+		//TODO handle Exceptions
+		Employee e = repository.save(employee);
+		return e.getId();		
 		
 	}
 	
