@@ -17,50 +17,47 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(value = "/v1.0/employee", produces = "application/json")
 public class EmployeeRestController {
-	
+
 	@Autowired
 	EmployeeService service;
-	
-	@RequestMapping(path = "/" ,method = RequestMethod.POST)
-	@ApiOperation(value = "create Employee", notes = "Create New Employee", response = Long.class, tags = {
-	"RestController" })
-	public ResponseEntity<?> create(@RequestBody Employee employee){
-		Long createdid =   service.create(employee);		
+
+	@RequestMapping(path = "/", method = RequestMethod.POST)
+	@ApiOperation(value = "create Employee", notes = "Create New Employee", response = Long.class, tags = { "Admin" })
+	public ResponseEntity<?> create(@RequestBody Employee employee) {
+		Long createdid = service.create(employee);
 		return new ResponseEntity<Long>(createdid, HttpStatus.OK);
 	}
-	
-	@RequestMapping(path = "/{id}",name="get Employee by id" ,method = RequestMethod.GET, produces = "application/json")
-	@ApiOperation(value = "get Employee by id",	notes = "<br/>To retrieve employee by id <br/> for example <BaseURL>/v1.0/employee/1 <br/>",	
-	response = Employee.class, tags = { "RestController", })
+
+	@RequestMapping(path = "/{id}", name = "get Employee by id", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "get Employee by id", notes = "<br/>To retrieve employee by id <br/> for example <BaseURL>/v1.0/employee/1 <br/>", response = Employee.class, tags = {
+			"Admin", })
 	public ResponseEntity<?> get(@PathVariable("id") Long id) {
 		Employee employee = service.get(id);
-		return new ResponseEntity<Employee>(employee, HttpStatus.OK);		
+		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
-	
-	@RequestMapping(path = "/",name="get All Employee" ,method = RequestMethod.GET, produces = "application/json")
-	@ApiOperation(value = "get Employee by id",	notes = "<br/>To retrieve all employees ",	
-	response = Employee.class,responseContainer = "List" ,tags = { "RestController", })	
 
-	public ResponseEntity<?> getAll(){
+	@RequestMapping(path = "/", name = "get All Employee", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "get Employees", notes = "<br/>To retrieve all employees ", response = Employee.class, responseContainer = "List", tags = {
+			"Admin", })
+
+	public ResponseEntity<?> getAll() {
 		Iterable<Employee> employees = service.getAll();
 		return new ResponseEntity<Iterable<Employee>>(employees, HttpStatus.OK);
 	}
-	
-	@RequestMapping(path = "/{id}" ,method = RequestMethod.PUT)
-	@ApiOperation(value = "update Employee", notes = "update existing Employee", response = Long.class, tags = {
-	"RestController" })
-	public ResponseEntity<?> update(@PathVariable("id") Long id,@RequestBody Employee employee){
-		Long updatedid =   service.update(id, employee);		
-		return new ResponseEntity<Long>(updatedid, HttpStatus.OK);
-	}	
 
-	@RequestMapping(path = "/{id}" ,method = RequestMethod.DELETE)
-	@ApiOperation(value = "delete Employee", notes = "delete Employee by id", response = Void.class, tags = {
-	"RestController" })
-	public ResponseEntity<?> delete(@PathVariable("id") Long id){
-		  service.delete(id);		
-		return new ResponseEntity<>(HttpStatus.OK);
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+	@ApiOperation(value = "update Employee", notes = "update existing Employee", response = Long.class, tags = {
+			"Admin" })
+	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Employee employee) {
+		Long updatedid = service.update(id, employee);
+		return new ResponseEntity<Long>(updatedid, HttpStatus.OK);
 	}
 
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "delete Employee", notes = "delete Employee by id", response = Void.class, tags = { "Admin" })
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+		service.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }

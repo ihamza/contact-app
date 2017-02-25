@@ -1,9 +1,13 @@
 package com.ihamza.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.ihamza.domain.Employee;
 
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
+
+	List<Employee> findTop3ByOrderByIdDesc();
 
 }

@@ -1,9 +1,10 @@
 package com.ihamza.domain;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Employee {
@@ -12,12 +13,13 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-    //TODO Add validation 
+    //TODO Add more validations 
+	@NotNull
 	private String name;
+	@NotNull
     private String email;
-    private String phone;
-    private Date hireDate;
-    private BigDecimal salary;
+	
+    private String phone;    
     
 	public Long getId() {
 		return id;
@@ -43,18 +45,5 @@ public class Employee {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Date getHireDate() {
-		return hireDate;
-	}
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
-	}
-	public BigDecimal getSalary() {
-		return salary;
-	}
-	public void setSalary(BigDecimal salary) {
-		this.salary = salary;
-	}
-    
-    
+	    
 }
